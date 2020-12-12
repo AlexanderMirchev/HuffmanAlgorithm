@@ -1,11 +1,12 @@
 #include "HuffmanTree.h"
+#include "HuffmanTreeHelper.h"
 #include <stdexcept>
 #include <queue>
 #include <algorithm>
 
-HuffmanTree::HuffmanTree(const std::string &text) : root{nullptr}
+HuffmanTree::HuffmanTree(const std::unordered_map<char, int> &dictionary) : root{nullptr}
 {
-    const std::multimap<int, char> sortedDictionary = sortedDictionaryOfSymbolsInText(text);
+    const std::multimap<int, char> sortedDictionary = HuffmanTreeHelper::sortDictionary(dictionary);
 
     // TODO put left and right
 
@@ -22,38 +23,72 @@ HuffmanTree::HuffmanTree(const std::string &text) : root{nullptr}
                 new HuffmanTreeLeaf(sortedPair.first, sortedPair.second),
                 root);
         }
-        std::cout << root->occuranceData() << std::endl;
     }
 }
+
 HuffmanTree::~HuffmanTree()
 {
     delete root;
 }
 
-std::multimap<int, char> HuffmanTree::sortedDictionaryOfSymbolsInText(const std::string &text)
+std::string HuffmanTree::convertToBinary(const std::string &text) const
 {
-    std::unordered_map<char, int> dictionary;
+    std::string binaryResult;
+
+    std::unordered_map<char, std::string> replacementBinaryCodes = generateReplacementBinaryCodes();
 
     for (auto symbol : text)
     {
-        try
+        binaryResult.append(replacementBinaryCodes[symbol]);
+    }
+
+    return binaryResult;
+}
+
+std::string HuffmanTree::convertFromBinary(const std::string &binary) const
+{
+    std::string result;
+
+    HuffmanTreeNode *searchingNode = root;
+
+    for (auto elem : binary)
+    {
+        if (elem == '0')
         {
-            int &occurances = dictionary.at(symbol);
-            occurances++;
+            searchingNode = searchingNode->left();
         }
-        catch (const std::out_of_range &e)
+        else if (elem == '1')
         {
-            dictionary[symbol] = 1;
+            searchingNode = searchingNode->right();
+        }
+
+        if (searchingNode->isLeaf())
+        {
+            result.push_back(searchingNode->characterData());
+            searchingNode = root;
         }
     }
 
-    std::multimap<int, char> result;
-    std::transform(
-        dictionary.begin(),
-        dictionary.end(),
-        std::inserter(result, result.begin()),
-        [](std::pair<char, int> pair)
-            -> std::pair<int, char> { return std::pair<int, char>(pair.second, pair.first); });
-
     return result;
+}
+
+std::unordered_map<char, std::string> HuffmanTree::generateReplacementBinaryCodes() const
+{
+    std::unordered_map<char, std::string> replacementBinaryCodes;
+    generateRepalcementBinaryCodesHelper(root, "", replacementBinaryCodes);
+    return replacementBinaryCodes;
+}
+
+void HuffmanTree::generateRepalcementBinaryCodesHelper(HuffmanTreeNode *node, const std::string &currentReplacementString, std::unordered_map<char, std::string> &map) const
+{
+
+    if (node->isLeaf())
+    {
+        map[node->characterData()] = currentReplacementString;
+    }
+    else
+    {
+        generateRepalcementBinaryCodesHelper(node->left(), currentReplacementString + '0', map);
+        generateRepalcementBinaryCodesHelper(node->right(), currentReplacementString + '1', map);
+    }
 }

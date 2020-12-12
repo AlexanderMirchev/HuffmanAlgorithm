@@ -13,12 +13,15 @@ private:
     HuffmanTreeNode *root;
 
 public:
-    HuffmanTree(const std::string& text);
+    HuffmanTree(const std::unordered_map<char, int>& dictionary);
     ~HuffmanTree();
-    
-    static std::multimap<int, char> sortedDictionaryOfSymbolsInText(const std::string &text);
+
+    std::string convertToBinary(const std::string&) const;
+    std::string convertFromBinary(const std::string &) const;
 
 private:
-
+    std::unordered_map<char, std::string> generateReplacementBinaryCodes() const;
+    void generateRepalcementBinaryCodesHelper(HuffmanTreeNode *currentNode, const std::string &currentReplacementString, std::unordered_map<char, std::string> &) const;
 };
+
 #endif

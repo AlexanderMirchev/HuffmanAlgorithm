@@ -19,7 +19,7 @@ const long &HuffmanTreeLeaf::occuranceData() const
 
 const char &HuffmanTreeLeaf::characterData() const
 {
-    throw this->character_data;
+    return this->character_data;
 }
 
 HuffmanTreeNode *HuffmanTreeLeaf::left() const
