@@ -4,14 +4,14 @@
 #include <stdexcept>
 #include <iostream>
 
-std::string HuffmanTreeHelper::serializeDictionary(const std::multimap<int, char> &dictionary)
+std::string HuffmanTreeHelper::serializeDictionary(const std::unordered_map<char, int> &dictionary)
 {
     std::string result;
 
     for (auto pair : dictionary)
     {
-        result.push_back(pair.second);
-        result.append(std::to_string(pair.first));
+        result.push_back(pair.first);
+        result.append(std::to_string(pair.second));
         result.push_back('|');
     }
 

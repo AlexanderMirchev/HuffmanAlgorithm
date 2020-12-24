@@ -4,7 +4,7 @@
 
 namespace HuffmanTreeHelper
 {
-    std::string serializeDictionary(const std::multimap<int, char> &);
+    std::string serializeDictionary(const std::unordered_map<char, int> &);
 
     std::unordered_map<char, int> deserializeDictionary(const std::string &);
 
