@@ -1,11 +1,12 @@
 #include "HuffmanTreeNodes.h"
 #include <stdexcept>
 
-HuffmanTreeInnerNode::HuffmanTreeInnerNode(const long &occuranceData, HuffmanTreeNode *left, HuffmanTreeNode *right)
+HuffmanTreeInnerNode::HuffmanTreeInnerNode(HuffmanTreeNode *left, HuffmanTreeNode *right)
 {
-    occurance_data = occuranceData;
+    occurance_data = left->occuranceData() + right->occuranceData();
     _left = left;
     _right = right;
+    _height = std::max(left->height(), right->height()) + 1;
 }
 
 HuffmanTreeInnerNode::~HuffmanTreeInnerNode()
@@ -37,4 +38,9 @@ HuffmanTreeNode *HuffmanTreeInnerNode::left() const
 HuffmanTreeNode *HuffmanTreeInnerNode::right() const
 {
     return _right;
+}
+
+int HuffmanTreeInnerNode::height() const
+{
+    return _height;
 }

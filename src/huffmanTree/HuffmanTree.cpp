@@ -3,27 +3,61 @@
 #include <stdexcept>
 #include <queue>
 #include <algorithm>
+#include <queue>
+#include <functional>
 
 HuffmanTree::HuffmanTree(const std::unordered_map<char, int> &dictionary) : root{nullptr}
 {
-    const std::multimap<int, char> sortedDictionary = HuffmanTreeHelper::sortDictionary(dictionary);
-
-    // TODO put left and right
-
-    for (auto sortedPair : sortedDictionary)
+    // TODO make less cancer if possible
+    struct NodeWrapper
     {
-        if (!root)
+        HuffmanTreeNode *node;
+        int order;
+    };
+
+    auto nodeWrapperComparator = [](NodeWrapper m, NodeWrapper n) -> bool {
+        if (m.node->occuranceData() == n.node->occuranceData())
         {
-            root = new HuffmanTreeLeaf(sortedPair.first, sortedPair.second);
+            if (m.node->isLeaf() && n.node->isLeaf())
+            {
+                return m.node->characterData() > n.node->characterData();
+            }
+            else if (m.node->height() != n.node->height())
+            {
+                return m.node->height() < n.node->height();
+            }
+            else
+            {
+                return m.order > n.order;
+            }
         }
-        else
-        {
-            root = new HuffmanTreeInnerNode(
-                root->occuranceData() + sortedPair.first,
-                new HuffmanTreeLeaf(sortedPair.first, sortedPair.second),
-                root);
-        }
+
+        return m.node->occuranceData() > n.node->occuranceData();
+    };
+    std::priority_queue<
+        NodeWrapper,
+        std::vector<NodeWrapper>,
+        std::function<bool(NodeWrapper, NodeWrapper)>>
+        priorityNodes(nodeWrapperComparator);
+
+    for (auto pair : dictionary)
+    {
+        priorityNodes.push({new HuffmanTreeLeaf(pair.second, pair.first), 0});
     }
+
+    int order = 1;
+    while (priorityNodes.size() >= 2)
+    {
+        HuffmanTreeNode *left = priorityNodes.top().node;
+        priorityNodes.pop();
+
+        HuffmanTreeNode *right = priorityNodes.top().node;
+        priorityNodes.pop();
+
+        priorityNodes.push({new HuffmanTreeInnerNode(left, right), order++});
+    }
+
+    root = priorityNodes.top().node;
 }
 
 HuffmanTree::~HuffmanTree()
@@ -53,6 +87,12 @@ std::string HuffmanTree::convertFromBinary(const std::string &binary) const
 
     for (auto elem : binary)
     {
+        if (searchingNode->isLeaf())
+        {
+            result.push_back(searchingNode->characterData());
+            searchingNode = root;
+        }
+
         if (elem == '0')
         {
             searchingNode = searchingNode->left();
@@ -60,12 +100,6 @@ std::string HuffmanTree::convertFromBinary(const std::string &binary) const
         else if (elem == '1')
         {
             searchingNode = searchingNode->right();
-        }
-
-        if (searchingNode->isLeaf())
-        {
-            result.push_back(searchingNode->characterData());
-            searchingNode = root;
         }
     }
 

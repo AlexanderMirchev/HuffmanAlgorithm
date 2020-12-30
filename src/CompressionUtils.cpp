@@ -19,8 +19,6 @@ void CompressionUtils::compress(const std::string &filename, const std::string &
 
     // TODO check if has .huf
     std::ofstream destination(filename + ".huf", std::ios::trunc);
-    destination << HuffmanTreeHelper::serializeDictionary(dictionary);
-    destination << std::endl;
 
     std::string tempBinary;
     for (auto symbol : huffManTree.convertToBinary(textToCompress))
@@ -39,22 +37,25 @@ void CompressionUtils::compress(const std::string &filename, const std::string &
     {
         destination << CompressionUtils::transformBinaryString(tempBinary);
     }
+
+    destination << std::endl;
+    destination << HuffmanTreeHelper::serializeDictionary(dictionary);
 }
 
 int CompressionUtils::transformBinaryString(const std::string &binary)
 {
     int result = 0;
     int power = 0;
-    for(std::string::const_reverse_iterator rit = binary.rbegin(); rit != binary.rend();++rit)
+    for (std::string::const_reverse_iterator rit = binary.rbegin(); rit != binary.rend(); ++rit)
     {
         char current = *rit;
 
-        if(current == '1')
+        if (current == '1')
         {
             result += std::pow(2, power);
             power++;
         }
-        else if(current == '0')
+        else if (current == '0')
         {
             power++;
         }
@@ -65,4 +66,8 @@ int CompressionUtils::transformBinaryString(const std::string &binary)
     }
 
     return result;
+}
+
+void decompress(const std::string &filename, const std::string &newFileName)
+{
 }

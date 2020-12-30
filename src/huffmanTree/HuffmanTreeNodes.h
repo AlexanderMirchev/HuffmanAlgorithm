@@ -13,6 +13,7 @@ public:
     virtual const char &characterData() const = 0;
     virtual HuffmanTreeNode *left() const = 0;
     virtual HuffmanTreeNode *right() const = 0;
+    virtual int height() const = 0;
 };
 
 class HuffmanTreeInnerNode : public HuffmanTreeNode
@@ -21,10 +22,11 @@ private:
     long occurance_data;
     HuffmanTreeNode *_left;
     HuffmanTreeNode *_right;
+    int _height;
 
 public:
     HuffmanTreeInnerNode() = delete;
-    HuffmanTreeInnerNode(const long &occuranceData, HuffmanTreeNode *left, HuffmanTreeNode *right);
+    HuffmanTreeInnerNode(HuffmanTreeNode *left, HuffmanTreeNode *right);
     ~HuffmanTreeInnerNode();
 
     bool isLeaf() const override;
@@ -32,6 +34,7 @@ public:
     const char &characterData() const override;
     HuffmanTreeNode *left() const override;
     HuffmanTreeNode *right() const override;
+    int height() const override;
 };
 
 class HuffmanTreeLeaf : public HuffmanTreeNode
@@ -50,6 +53,7 @@ public:
     const char &characterData() const override;
     HuffmanTreeNode *left() const override;
     HuffmanTreeNode *right() const override;
+    int height() const override;
 };
 
 namespace HuffmanTreeNodeExceptions

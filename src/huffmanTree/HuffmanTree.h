@@ -13,10 +13,10 @@ private:
     HuffmanTreeNode *root;
 
 public:
-    HuffmanTree(const std::unordered_map<char, int>& dictionary);
+    HuffmanTree(const std::unordered_map<char, int> &dictionary);
     ~HuffmanTree();
 
-    std::string convertToBinary(const std::string&) const;
+    std::string convertToBinary(const std::string &) const;
     std::string convertFromBinary(const std::string &) const;
 
 private:

@@ -33,3 +33,8 @@ HuffmanTreeNode *HuffmanTreeLeaf::right() const
     // TODO
     throw std::exception();
 }
+
+int HuffmanTreeLeaf::height() const
+{
+    return 0;
+}
