@@ -1,4 +1,3 @@
-
 #ifndef _HUFFMAN_TREE_NODES_HH_
 #define _HUFFMAN_TREE_NODES_HH_
 
@@ -60,6 +59,6 @@ namespace HuffmanTreeNodeExceptions
 {
     // TODO implement adequate exceptions for all cases
 
-}; // namespace HuffmanTreeNodeExceptions
+} // namespace HuffmanTreeNodeExceptions
 
 #endif

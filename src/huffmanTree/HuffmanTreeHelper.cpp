@@ -35,7 +35,6 @@ std::unordered_map<char, int> HuffmanTreeHelper::deserializeDictionary(const std
         }
         else
         {
-
             if (symbol == '|')
             {
                 if (currentOccurances.empty())
@@ -55,7 +54,7 @@ std::unordered_map<char, int> HuffmanTreeHelper::deserializeDictionary(const std
             {
                 currentOccurances.push_back(symbol);
             }
- 
+
             else
             {
                 throw std::exception();

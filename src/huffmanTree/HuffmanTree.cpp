@@ -24,7 +24,7 @@ HuffmanTree::HuffmanTree(const std::unordered_map<char, int> &dictionary) : root
             }
             else if (m.node->height() != n.node->height())
             {
-                return m.node->height() < n.node->height();
+                return m.node->height() > n.node->height();
             }
             else
             {
@@ -44,6 +44,18 @@ HuffmanTree::HuffmanTree(const std::unordered_map<char, int> &dictionary) : root
     {
         priorityNodes.push({new HuffmanTreeLeaf(pair.second, pair.first), 0});
     }
+
+    std::priority_queue<
+        NodeWrapper,
+        std::vector<NodeWrapper>,
+        std::function<bool(NodeWrapper, NodeWrapper)>>
+        priorityNodes2(priorityNodes);
+    while (!priorityNodes2.empty())
+    {
+        std::cout << priorityNodes2.top().node->characterData() << " ";
+        priorityNodes2.pop();
+    }
+    std::cout << std::endl;
 
     int order = 1;
     while (priorityNodes.size() >= 2)

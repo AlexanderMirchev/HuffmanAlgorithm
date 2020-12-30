@@ -1,3 +1,6 @@
+#ifndef _HUFFMAN_TREE_HELPER_HH_
+#define _HUFFMAN_TREE_HELPER_HH_
+
 #include <unordered_map>
 #include <map>
 #include <string>
@@ -12,4 +15,6 @@ namespace HuffmanTreeHelper
 
     std::multimap<int, char> sortDictionary(const std::unordered_map<char, int> &);
 
-}; // namespace HuffmanTreeHelper
+} // namespace HuffmanTreeHelper
+
+#endif

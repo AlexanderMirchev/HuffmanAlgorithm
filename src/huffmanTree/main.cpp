@@ -31,13 +31,14 @@ int main()
 
     // HuffmanTree huffmanTree = HuffmanTree(HuffmanTreeHelper::generateDictionaryFromText(text));
 
-
     // std::string binary = huffmanTree.convertToBinary(text);
     // std::cout << binary << std::endl;
 
     // std::cout << huffmanTree.convertFromBinary(binary) << std::endl;
 
     CompressionUtils::compress("kur2.txt", "kur");
+
+    CompressionUtils::decompress("kur2.txt.huf", "qnko.txt");
 
     return 0;
 }
