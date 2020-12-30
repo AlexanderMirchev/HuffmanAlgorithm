@@ -45,18 +45,6 @@ HuffmanTree::HuffmanTree(const std::unordered_map<char, int> &dictionary) : root
         priorityNodes.push({new HuffmanTreeLeaf(pair.second, pair.first), 0});
     }
 
-    std::priority_queue<
-        NodeWrapper,
-        std::vector<NodeWrapper>,
-        std::function<bool(NodeWrapper, NodeWrapper)>>
-        priorityNodes2(priorityNodes);
-    while (!priorityNodes2.empty())
-    {
-        std::cout << priorityNodes2.top().node->characterData() << " ";
-        priorityNodes2.pop();
-    }
-    std::cout << std::endl;
-
     int order = 1;
     while (priorityNodes.size() >= 2)
     {
@@ -99,12 +87,6 @@ std::string HuffmanTree::convertFromBinary(const std::string &binary) const
 
     for (auto elem : binary)
     {
-        if (searchingNode->isLeaf())
-        {
-            result.push_back(searchingNode->characterData());
-            searchingNode = root;
-        }
-
         if (elem == '0')
         {
             searchingNode = searchingNode->left();
@@ -112,6 +94,12 @@ std::string HuffmanTree::convertFromBinary(const std::string &binary) const
         else if (elem == '1')
         {
             searchingNode = searchingNode->right();
+        }
+
+        if (searchingNode->isLeaf())
+        {
+            result.push_back(searchingNode->characterData());
+            searchingNode = root;
         }
     }
 

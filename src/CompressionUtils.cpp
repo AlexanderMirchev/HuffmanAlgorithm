@@ -1,13 +1,16 @@
 #include "CompressionUtils.h"
 
-#include <bitset>
 #include <cmath>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <unordered_map>
+
 #include "huffmanTree/HuffmanTree.h"
 #include "huffmanTree/HuffmanTreeHelper.h"
+#include "utils/BinaryUtils.h"
+
+int compressAndSerializeText(const std::string &binary, std::ofstream &destination);
 
 double CompressionUtils::compress(const std::string &filename, const std::string &newFileName)
 {
@@ -18,70 +21,65 @@ double CompressionUtils::compress(const std::string &filename, const std::string
     std::unordered_map<char, int> dictionary = HuffmanTreeHelper::generateDictionaryFromText(textToCompress);
     HuffmanTree huffManTree = HuffmanTree(dictionary);
 
-    // TODO check if has .huf
     std::ofstream destination(filename + ".huf", std::ios::trunc);
 
-    int memoryCounter = 0;
+    int compressedMemory = compressAndSerializeText(huffManTree.convertToBinary(textToCompress), destination);
+
+    destination << HuffmanTreeHelper::serializeDictionary(dictionary);
+
+    return (double)compressedMemory / fileToCompress.tellg();
+}
+
+std::string decompressSerializedText(const std::string &compressed);
+
+std::string deserializeDictionaryFromSource(std::ifstream &source);
+
+void CompressionUtils::decompress(const std::string &filename, const std::string &newFileName)
+{
+    std::ifstream source(filename);
+
+    std::string compressedInput;
+    std::getline(source, compressedInput);
+
+    HuffmanTree huffManTree = HuffmanTree(HuffmanTreeHelper::deserializeDictionary(deserializeDictionaryFromSource(source)));
+
+    std::ofstream destination(newFileName);
+
+    destination << huffManTree.convertFromBinary(decompressSerializedText(compressedInput));
+}
+
+int compressAndSerializeText(const std::string &binary, std::ofstream &destination)
+{
+    int compressedMemory = 0;
+
     std::string tempBinary;
-    for (auto symbol : huffManTree.convertToBinary(textToCompress))
+    for (auto symbol : binary)
     {
         if (tempBinary.size() == 8)
         {
-
-            destination << std::bitset<8>(tempBinary).to_ulong() << ' ';
-            memoryCounter++;
+            destination << BinaryUtils::binaryToInt(tempBinary) << ' ';
+            compressedMemory++;
             tempBinary.clear();
         }
         tempBinary.push_back(symbol);
     }
     if (!tempBinary.empty())
     {
-        destination << std::bitset<8>(tempBinary).to_ulong();
-        memoryCounter++;
+        destination << BinaryUtils::binaryToInt(tempBinary);
+        compressedMemory++;
     }
+
     destination << std::endl;
-    destination << HuffmanTreeHelper::serializeDictionary(dictionary);
 
-    return (double)memoryCounter / fileToCompress.tellg();
+    return compressedMemory;
 }
 
-int CompressionUtils::transformBinaryString(const std::string &binary)
+std::string decompressSerializedText(const std::string &compressed)
 {
-    int result = 0;
-    int power = 0;
-    for (std::string::const_reverse_iterator rit = binary.rbegin(); rit != binary.rend(); ++rit)
-    {
-        char current = *rit;
-
-        if (current == '1')
-        {
-            result += std::pow(2, power);
-            power++;
-        }
-        else if (current == '0')
-        {
-            power++;
-        }
-        else
-        {
-            throw std::exception();
-        }
-    }
-
-    return result;
-}
-
-std::string toBinary(int n);
-void CompressionUtils::decompress(const std::string &filename, const std::string &newFileName)
-{
-    std::ifstream source(filename);
-
-    std::string encrypted;
-    std::getline(source, encrypted);
-
-    std::string binaryEncrypted;
+    std::string decompressedBinary;
     std::string tempNumber;
-    for (auto symbol : encrypted)
+
+    for (auto symbol : compressed)
     {
         if (symbol <= '9' && symbol >= '0')
         {
@@ -89,7 +87,7 @@ void CompressionUtils::decompress(const std::string &filename, const std::string
         }
         else if (symbol == ' ')
         {
-            binaryEncrypted.append(std::bitset<8>(std::stoi(tempNumber)).to_string());
+            decompressedBinary.append(BinaryUtils::intToBinary(std::stoi(tempNumber), true));
             tempNumber.clear();
         }
         else
@@ -100,9 +98,14 @@ void CompressionUtils::decompress(const std::string &filename, const std::string
     }
     if (!tempNumber.empty())
     {
-        binaryEncrypted.append(toBinary(std::stoi(tempNumber)));
+        decompressedBinary.append(BinaryUtils::intToBinary(std::stoi(tempNumber)));
     }
+    
+    return decompressedBinary;
+}
 
+std::string deserializeDictionaryFromSource(std::ifstream &source)
+{
     std::stringstream dictionaryStream;
 
     if (source.is_open())
@@ -114,24 +117,5 @@ void CompressionUtils::decompress(const std::string &filename, const std::string
         }
     }
 
-    HuffmanTree huffManTree = HuffmanTree(HuffmanTreeHelper::deserializeDictionary(dictionaryStream.str()));
-
-    std::ofstream destination(newFileName);
-
-    destination << huffManTree.convertFromBinary(binaryEncrypted);
-}
-
-std::string toBinary(int n)
-{
-    std::string r;
-    if (n == 0)
-    {
-        return "0";
-    }
-    while (n != 0)
-    {
-        r = (n % 2 == 0 ? "0" : "1") + r;
-        n /= 2;
-    }
-    return r;
+    return dictionaryStream.str();
 }

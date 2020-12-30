@@ -24,9 +24,7 @@ std::unordered_map<char, int> HuffmanTreeHelper::deserializeDictionary(const std
 
     char currentCharacter = '|';
     std::string currentOccurances;
-
-    // std::cout << serialized << std::endl;
-
+    
     for (auto symbol : serialized)
     {
         if (currentCharacter == '|')

@@ -20,7 +20,5 @@ namespace CompressionUtils
     */
     void decompress(const std::string &filename, const std::string &newFileName);
     // void decompress(const std::string& filename);
-
-    int transformBinaryString(const std::string &);
 } // namespace CompressionUtils
 #endif
