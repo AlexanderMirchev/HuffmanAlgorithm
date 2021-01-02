@@ -12,23 +12,19 @@
 class CompressionController
 {
 public:
-    // CompressionController();
-    // ~CompressionController();
-
+    static void start();
+private:
     static std::string runCommand(const std::string &command);
 
-private:
-    using UseCaseGenerator = std::function<std::unique_ptr<UseCase>(const std::smatch&)>;
-    using IterableCommandMap = std::vector<std::pair<std::regex, UseCaseGenerator>>;
+    using UseCaseGenerator = std::function<std::unique_ptr<UseCase>(const std::smatch &)>;
+    using IterableRegexUseCaseMap = std::vector<std::pair<std::regex, UseCaseGenerator>>;
 
-    static const std::regex compressionCommandRegex;
-    static const std::regex decompressionCommandRegex;
+    static const std::regex COMPRESSION_REGEX;
+    static const std::regex DECOMPRESSION_REGEX;
 
-    static const IterableCommandMap commandMap;
+    static const IterableRegexUseCaseMap REGEX_USE_CASE_MAP;
 
-    // TODO implement properly
-    // template<class T>
-    // static std::string execute(std::function<T(std::string)>);
+    static const std::string NO_MATCH_MESSAGE;
 };
 
 #endif

@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <sstream>
 
-#include "../CompressionUtils.h"
+#include "../utils/CompressionUtils.h"
 
 CompressionUseCase::CompressionUseCase(const std::string &source, const std::string &destination)
 {
