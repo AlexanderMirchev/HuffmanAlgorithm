@@ -2,17 +2,13 @@
 #include "HuffmanTree.h"
 #include "HuffmanTreeHelper.h"
 #include "../CompressionUtils.h"
-#include "../CompressionController.h"
+#include "../userInterface/CompressionController.h"
 
 int main()
 {
-    // CompressionUtils::compress("kur2.txt", "kur");
-
-    // CompressionUtils::decompress("kur2.txt.huf", "qnko.txt");
-
-    // CompressionController::runCommand("compress -i kur.txt -o kur.huf");
+    // std::cout << CompressionController::runCommand("compress -i kur.txt -o kur.huf") << std::endl;
     
-    // CompressionController::runCommand("compress -i kur.txt");
+    std::cout << CompressionController::runCommand("compress -i kur.txt") << std::endl;
 
     return 0;
 }

@@ -3,6 +3,7 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <regex>
 #include <sstream>
 #include <unordered_map>
 
@@ -30,6 +31,14 @@ double CompressionUtils::compress(const std::string &filename, const std::string
     return (double)compressedMemory / fileToCompress.tellg();
 }
 
+double CompressionUtils::compress(const std::string &filename)
+{
+    std::regex regexToExtractFilename("([[:w:]])\\.txt");
+    std::smatch s;
+    std::regex_search(filename, s, regexToExtractFilename);
+    return compress(filename, s[1]);
+}
+
 std::string decompressSerializedText(const std::string &compressed);
 
 std::string deserializeDictionaryFromSource(std::ifstream &source);
@@ -47,6 +56,15 @@ void CompressionUtils::decompress(const std::string &filename, const std::string
 
     destination << huffManTree.convertFromBinary(decompressSerializedText(compressedInput));
 }
+
+void CompressionUtils::decompress(const std::string &filename)
+{
+    std::regex regexToExtractFilename("([[:w:]]\\.huf");
+    std::smatch s;
+    std::regex_search(filename, s, regexToExtractFilename);
+    decompress(filename, s[1]);
+}
+
 
 int compressAndSerializeText(const std::string &binary, std::ofstream &destination)
 {
@@ -100,7 +118,7 @@ std::string decompressSerializedText(const std::string &compressed)
     {
         decompressedBinary.append(BinaryUtils::intToBinary(std::stoi(tempNumber)));
     }
-    
+
     return decompressedBinary;
 }
 
