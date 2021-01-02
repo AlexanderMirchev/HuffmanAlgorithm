@@ -1,8 +1,6 @@
 #ifndef _HUFFMAN_TREE_NODES_HH_
 #define _HUFFMAN_TREE_NODES_HH_
 
-#include <iostream>
-
 class HuffmanTreeNode
 {
 public:

@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <stdexcept>
-#include <iostream>
 
 std::string HuffmanTreeHelper::serializeDictionary(const std::unordered_map<char, int> &dictionary)
 {

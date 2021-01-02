@@ -1,8 +1,6 @@
 #ifndef _USE_CASE_HH_
 #define _USE_CASE_HH_
 
-#include <iostream>
-
 class UseCase
 {
 public:

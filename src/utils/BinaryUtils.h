@@ -5,6 +5,9 @@
 
 namespace BinaryUtils
 {
+    /**
+     * Converts int to binary, fullByte converts it to 8 digit string
+    */
     std::string intToBinary(const int &);
     std::string intToBinary(const int &, const bool& fullByte);
 
