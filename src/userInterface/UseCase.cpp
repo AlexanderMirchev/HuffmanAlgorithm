@@ -1,6 +1,7 @@
 #include "UseCase.h"
 
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 
 #include "../utils/CompressionUtils.h"
@@ -27,10 +28,14 @@ std::string CompressionUseCase::operator()() const
 
         return "Compression successful with compression rate of " + getPercentage(result);
     }
+    catch (const CompressionUtils::CompressionException &e)
+    {
+        return e.what();
+    }
     catch (const std::exception &e)
     {
-        // TODO adequately
-        return "Could not complete operation. Reason: " + std::string(e.what());
+        std::cout << e.what() << std::endl;
+        return "Compression failed with unhandled error";
     }
 }
 
@@ -61,9 +66,13 @@ std::string DecompressionUseCase::operator()() const
         }
         return "Decompression successful";
     }
+    catch (const CompressionUtils::CompressionException &e)
+    {
+        return e.what();
+    }
     catch (const std::exception &e)
     {
-        // TODO adequately
-        return "Could not complete operation. Reason: " + std::string(e.what());
+        std::cout << e.what() << std::endl;
+        return "Decompression failed with unhandled error";
     }
 }

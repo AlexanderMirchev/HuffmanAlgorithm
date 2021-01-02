@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <stdexcept>
 
+#include "HuffmanTreeExceptions.h"
+
 std::string HuffmanTreeHelper::serializeDictionary(const std::unordered_map<char, int> &dictionary)
 {
     std::string result;
@@ -23,7 +25,7 @@ std::unordered_map<char, int> HuffmanTreeHelper::deserializeDictionary(const std
 
     char currentCharacter = '|';
     std::string currentOccurances;
-    
+
     for (auto symbol : serialized)
     {
         if (currentCharacter == '|')
@@ -36,8 +38,7 @@ std::unordered_map<char, int> HuffmanTreeHelper::deserializeDictionary(const std
             {
                 if (currentOccurances.empty())
                 {
-                    // TODO make adequate
-                    throw std::exception();
+                    throw HuffmanTreeExceptions::BadSerializedDictionary();
                 }
                 else
                 {
@@ -54,7 +55,7 @@ std::unordered_map<char, int> HuffmanTreeHelper::deserializeDictionary(const std
 
             else
             {
-                throw std::exception();
+                throw HuffmanTreeExceptions::BadSerializedDictionary();
             }
         }
     }
@@ -79,17 +80,4 @@ std::unordered_map<char, int> HuffmanTreeHelper::generateDictionaryFromText(cons
         }
     }
     return dictionary;
-}
-
-std::multimap<int, char> HuffmanTreeHelper::sortDictionary(const std::unordered_map<char, int> &dictionary)
-{
-    std::multimap<int, char> result;
-    std::transform(
-        dictionary.begin(),
-        dictionary.end(),
-        std::inserter(result, result.begin()),
-        [](std::pair<char, int> pair)
-            -> std::pair<int, char> { return std::pair<int, char>(pair.second, pair.first); });
-
-    return result;
 }

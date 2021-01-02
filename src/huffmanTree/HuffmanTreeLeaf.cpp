@@ -1,5 +1,4 @@
 #include "HuffmanTreeNodes.h"
-#include <stdexcept>
 
 HuffmanTreeLeaf::HuffmanTreeLeaf(const long &occuranceData, char characterData)
 {
@@ -24,14 +23,12 @@ const char &HuffmanTreeLeaf::characterData() const
 
 HuffmanTreeNode *HuffmanTreeLeaf::left() const
 {
-    // TODO
-    throw std::exception();
+    throw HuffmanTreeExceptions::TreeNodeBadAccess();
 }
 
 HuffmanTreeNode *HuffmanTreeLeaf::right() const
 {
-    // TODO
-    throw std::exception();
+    throw HuffmanTreeExceptions::TreeNodeBadAccess();
 }
 
 int HuffmanTreeLeaf::height() const

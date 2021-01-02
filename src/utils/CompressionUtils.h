@@ -1,6 +1,7 @@
 #ifndef _COMPRESSION_UTILS_HH_
 #define _COMPRESSION_UTILS_HH_
 
+#include <cstring>
 #include <string>
 
 namespace CompressionUtils
@@ -20,5 +21,77 @@ namespace CompressionUtils
     */
     void decompress(const std::string &source, const std::string &destination);
     void decompress(const std::string &source);
+
+    struct CompressionException : public std::exception
+    {
+        virtual ~CompressionException() = default;
+        virtual const char *what() const noexcept = 0;
+    };
+
+    class CouldNotOpenFile : public CompressionException
+    {
+    private:
+        char message[80];
+
+    public:
+        CouldNotOpenFile() = delete;
+        ~CouldNotOpenFile() = default;
+        CouldNotOpenFile(const std::string &filename)
+        {
+            sprintf(message, "Could not open file %s.", filename.c_str());
+        }
+        const char *what() const noexcept override
+        {
+            return message;
+        }
+    };
+
+    class CompressionFailed : public CompressionException
+    {
+    private:
+        char message[80];
+
+    public:
+        CompressionFailed() = delete;
+        ~CompressionFailed() = default;
+        CompressionFailed(const std::string &reason)
+        {
+            sprintf(message, "Compression failed. Reason: %s", reason.c_str());
+        }
+        const char *what() const noexcept override
+        {
+            return message;
+        }
+    };
+
+    class DecompressionFailed : public CompressionException
+    {
+    private:
+        char message[80];
+
+    public:
+        DecompressionFailed() = delete;
+        ~DecompressionFailed() = default;
+        DecompressionFailed(const std::string &reason)
+        {
+            sprintf(message, "Decompression failed. Reason: %s", reason.c_str());
+        }
+        const char *what() const noexcept override
+        {
+            return message;
+        }
+    };
+
+    class BadInputToDecompress : public CompressionException
+    {
+    public:
+        BadInputToDecompress() = default;
+        ~BadInputToDecompress() = default;
+        const char *what() const noexcept override
+        {
+            return "Input you are trying to decompress contains characters other than numbers and whitespace";
+        }
+    };
 } // namespace CompressionUtils
+
 #endif

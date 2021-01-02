@@ -1,6 +1,11 @@
 #ifndef _HUFFMAN_TREE_NODES_HH_
 #define _HUFFMAN_TREE_NODES_HH_
 
+#include "HuffmanTreeExceptions.h"
+
+/**
+ * Node in the structure of the binary huffman tree
+*/
 class HuffmanTreeNode
 {
 public:
@@ -13,6 +18,10 @@ public:
     virtual int height() const = 0;
 };
 
+/**
+ * Inner node of the binary huffman tree.
+ * Invocation of the characterData() method results in HuffmanTreeExceptions::TreeNodeBadAccess()
+*/
 class HuffmanTreeInnerNode : public HuffmanTreeNode
 {
 private:
@@ -34,6 +43,10 @@ public:
     int height() const override;
 };
 
+/**
+ * Leaf node of the binary huffman tree.
+ * Invocation of the left() and right() method results in HuffmanTreeExceptions::TreeNodeBadAccess()
+*/
 class HuffmanTreeLeaf : public HuffmanTreeNode
 {
 private:
@@ -52,11 +65,5 @@ public:
     HuffmanTreeNode *right() const override;
     int height() const override;
 };
-
-namespace HuffmanTreeNodeExceptions
-{
-    // TODO implement adequate exceptions for all cases
-
-} // namespace HuffmanTreeNodeExceptions
 
 #endif

@@ -27,7 +27,7 @@ const long &HuffmanTreeInnerNode::occuranceData() const
 
 const char &HuffmanTreeInnerNode::characterData() const
 {
-    throw std::exception();
+    throw HuffmanTreeExceptions::TreeNodeBadAccess();
 }
 
 HuffmanTreeNode *HuffmanTreeInnerNode::left() const

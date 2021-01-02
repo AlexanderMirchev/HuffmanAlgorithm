@@ -15,7 +15,7 @@ namespace BinaryUtils
 
     struct BinaryConversionException : public std::exception
     {
-        const char *what() const throw() override
+        const char *what() const noexcept override
         {
             return "Error in converting binary expression: contains character other than 0 and 1.";
         }

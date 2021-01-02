@@ -8,6 +8,7 @@
 
 #include "../huffmanTree/HuffmanTree.h"
 #include "../huffmanTree/HuffmanTreeHelper.h"
+#include "../huffmanTree/HuffmanTreeExceptions.h"
 #include "BinaryUtils.h"
 
 /**
@@ -59,8 +60,7 @@ namespace
             }
             else
             {
-                // TODO adequate
-                throw std::exception();
+                throw CompressionUtils::BadInputToDecompress();
             }
         }
         if (!tempNumber.empty())
@@ -75,13 +75,10 @@ namespace
     {
         std::stringstream dictionaryStream;
 
-        if (source.is_open())
+        std::string dictionaryLine;
+        while (getline(source, dictionaryLine))
         {
-            std::string dictionaryLine;
-            while (getline(source, dictionaryLine))
-            {
-                dictionaryStream << dictionaryLine << '\n';
-            }
+            dictionaryStream << dictionaryLine << '\n';
         }
 
         return dictionaryStream.str();
@@ -94,18 +91,38 @@ namespace
 double CompressionUtils::compress(const std::string &sourceFilename, const std::string &destinationFilename)
 {
     std::ifstream source(sourceFilename);
-    std::string input((std::istreambuf_iterator<char>(source)), std::istreambuf_iterator<char>());
+    try
+    {
+        if (!source.is_open())
+        {
+            throw CouldNotOpenFile(sourceFilename);
+        }
 
-    std::unordered_map<char, int> dictionary = HuffmanTreeHelper::generateDictionaryFromText(input);
-    HuffmanTree huffManTree = HuffmanTree(dictionary);
+        std::string input((std::istreambuf_iterator<char>(source)), std::istreambuf_iterator<char>());
 
-    std::ofstream destination(destinationFilename, std::ios::trunc);
+        std::unordered_map<char, int> dictionary = HuffmanTreeHelper::generateDictionaryFromText(input);
+        HuffmanTree huffManTree = HuffmanTree(dictionary);
 
-    int compressedMemory = compressAndSerializeText(huffManTree.convertToBinary(input), destination);
+        std::ofstream destination(destinationFilename, std::ios::trunc);
 
-    destination << HuffmanTreeHelper::serializeDictionary(dictionary);
+        int compressedMemory = compressAndSerializeText(huffManTree.convertToBinary(input), destination);
 
-    return (double)compressedMemory / source.tellg();
+        destination << HuffmanTreeHelper::serializeDictionary(dictionary);
+
+        return (double)compressedMemory / source.tellg();
+    }
+    catch (const BinaryUtils::BinaryConversionException &e)
+    {
+        char message[50];
+        sprintf(message, "Invalid produced binary: %s", e.what());
+        source.close();
+        throw CompressionFailed(message);
+    }
+    catch (const HuffmanTreeExceptions::HuffmanTreeException &e)
+    {
+        source.close();
+        throw CompressionFailed(e.what());
+    }
 }
 
 double CompressionUtils::compress(const std::string &sourceFilename)
@@ -119,20 +136,33 @@ double CompressionUtils::compress(const std::string &sourceFilename)
 void CompressionUtils::decompress(const std::string &sourceFilename, const std::string &destinationFilename)
 {
     std::ifstream source(sourceFilename);
+    try
+    {   
+        if (!source.is_open())
+        {
+            throw CouldNotOpenFile(sourceFilename);
+        }
 
-    std::string input;
-    std::getline(source, input);
+        std::string input;
+        std::getline(source, input);
 
-    HuffmanTree huffManTree = HuffmanTree(HuffmanTreeHelper::deserializeDictionary(deserializeDictionaryFromSource(source)));
+        std::unordered_map<char, int> dictionary = HuffmanTreeHelper::deserializeDictionary(deserializeDictionaryFromSource(source));
+        HuffmanTree huffManTree = HuffmanTree(dictionary);
 
-    std::ofstream destination(destinationFilename);
+        std::ofstream destination(destinationFilename);
 
-    destination << huffManTree.convertFromBinary(decompressSerializedText(input));
+        destination << huffManTree.convertFromBinary(decompressSerializedText(input));
+    }
+    catch (const HuffmanTreeExceptions::HuffmanTreeException &e)
+    {
+        source.close();
+        throw DecompressionFailed(e.what());
+    }
 }
 
 void CompressionUtils::decompress(const std::string &sourceFilename)
 {
-    std::regex regexToExtractFilename("([[:w:]]+\\.huf");
+    std::regex regexToExtractFilename("([[:w:]]+)\\.huf");
     std::smatch s;
     std::regex_search(sourceFilename, s, regexToExtractFilename);
     decompress(sourceFilename, s[1].str() + ".txt");

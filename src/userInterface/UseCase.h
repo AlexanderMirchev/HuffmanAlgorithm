@@ -20,7 +20,7 @@ public:
     CompressionUseCase() = delete;
     CompressionUseCase(const CompressionUseCase &) = delete;
     CompressionUseCase(const std::string &, const std::string &);
-    ~CompressionUseCase() override = default;
+    ~CompressionUseCase() = default;
 
     std::string operator()() const override;
 
@@ -38,7 +38,7 @@ public:
     DecompressionUseCase() = delete;
     DecompressionUseCase(const DecompressionUseCase &) = delete;
     DecompressionUseCase(const std::string &, const std::string &);
-    ~DecompressionUseCase() override = default;
+    ~DecompressionUseCase() = default;
 
     std::string operator()() const override;
 };
