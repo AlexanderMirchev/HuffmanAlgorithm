@@ -1,63 +1,30 @@
 #include "HuffmanTree.h"
 #include "HuffmanTreeHelper.h"
+
 #include <stdexcept>
-#include <queue>
-#include <algorithm>
-#include <queue>
-#include <functional>
 
 HuffmanTree::HuffmanTree(const std::unordered_map<char, int> &dictionary) : root{nullptr}
 {
-    // TODO make less cancer if possible
-    struct NodeWrapper
-    {
-        HuffmanTreeNode *node;
-        int order;
-    };
-
-    auto nodeWrapperComparator = [](NodeWrapper m, NodeWrapper n) -> bool {
-        if (m.node->occuranceData() == n.node->occuranceData())
-        {
-            if (m.node->isLeaf() && n.node->isLeaf())
-            {
-                return m.node->characterData() > n.node->characterData();
-            }
-            else if (m.node->height() != n.node->height())
-            {
-                return m.node->height() > n.node->height();
-            }
-            else
-            {
-                return m.order > n.order;
-            }
-        }
-
-        return m.node->occuranceData() > n.node->occuranceData();
-    };
-    std::priority_queue<
-        NodeWrapper,
-        std::vector<NodeWrapper>,
-        std::function<bool(NodeWrapper, NodeWrapper)>>
-        priorityNodes(nodeWrapperComparator);
+    NodePriorityQueue nodePriorityQueue(nodeComparator);
 
     for (auto pair : dictionary)
     {
-        priorityNodes.push({new HuffmanTreeLeaf(pair.second, pair.first), 0});
+        nodePriorityQueue.push({new HuffmanTreeLeaf(pair.second, pair.first), 0});
     }
 
     int order = 1;
-    while (priorityNodes.size() >= 2)
+    while (nodePriorityQueue.size() >= 2)
     {
-        HuffmanTreeNode *left = priorityNodes.top().node;
-        priorityNodes.pop();
+        HuffmanTreeNode *left = nodePriorityQueue.top().node;
+        nodePriorityQueue.pop();
 
-        HuffmanTreeNode *right = priorityNodes.top().node;
-        priorityNodes.pop();
+        HuffmanTreeNode *right = nodePriorityQueue.top().node;
+        nodePriorityQueue.pop();
 
-        priorityNodes.push({new HuffmanTreeInnerNode(left, right), order++});
+        nodePriorityQueue.push({new HuffmanTreeInnerNode(left, right), order++});
     }
 
-    root = priorityNodes.top().node;
+    root = nodePriorityQueue.top().node;
 }
 
 HuffmanTree::~HuffmanTree()
@@ -109,11 +76,11 @@ std::string HuffmanTree::convertFromBinary(const std::string &binary) const
 std::unordered_map<char, std::string> HuffmanTree::generateReplacementBinaryCodes() const
 {
     std::unordered_map<char, std::string> replacementBinaryCodes;
-    generateRepalcementBinaryCodesHelper(root, "", replacementBinaryCodes);
+    generateReplacementBinaryCodesHelper(root, "", replacementBinaryCodes);
     return replacementBinaryCodes;
 }
 
-void HuffmanTree::generateRepalcementBinaryCodesHelper(HuffmanTreeNode *node, const std::string &currentReplacementString, std::unordered_map<char, std::string> &map) const
+void HuffmanTree::generateReplacementBinaryCodesHelper(HuffmanTreeNode *node, const std::string &currentReplacementString, std::unordered_map<char, std::string> &map) const
 {
 
     if (node->isLeaf())
@@ -122,7 +89,27 @@ void HuffmanTree::generateRepalcementBinaryCodesHelper(HuffmanTreeNode *node, co
     }
     else
     {
-        generateRepalcementBinaryCodesHelper(node->left(), currentReplacementString + '0', map);
-        generateRepalcementBinaryCodesHelper(node->right(), currentReplacementString + '1', map);
+        generateReplacementBinaryCodesHelper(node->left(), currentReplacementString + '0', map);
+        generateReplacementBinaryCodesHelper(node->right(), currentReplacementString + '1', map);
     }
 }
+
+const HuffmanTree::NodeComparator HuffmanTree::nodeComparator = [](NodeWrapper m, NodeWrapper n) -> bool {
+    if (m.node->occuranceData() == n.node->occuranceData())
+    {
+        if (m.node->isLeaf() && n.node->isLeaf())
+        {
+            return m.node->characterData() > n.node->characterData();
+        }
+        else if (m.node->height() != n.node->height())
+        {
+            return m.node->height() > n.node->height();
+        }
+        else
+        {
+            return m.order > n.order;
+        }
+    }
+
+    return m.node->occuranceData() > n.node->occuranceData();
+};

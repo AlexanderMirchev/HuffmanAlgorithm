@@ -1,8 +1,9 @@
 #ifndef _HUFFMAN_TREE_HH_
 #define _HUFFMAN_TREE_HH_
 
-#include <map>
+#include <functional>
 #include <unordered_map>
+#include <queue>
 #include <string>
 
 #include "HuffmanTreeNodes.h"
@@ -20,8 +21,21 @@ public:
     std::string convertFromBinary(const std::string &) const;
 
 private:
+    /**
+     * Creation utilities
+    */
+    struct NodeWrapper
+    {
+        HuffmanTreeNode *node;
+        int order;
+    };
+    
+    using NodeComparator = std::function<bool(NodeWrapper, NodeWrapper)>;
+    static const NodeComparator nodeComparator;
+    using NodePriorityQueue = std::priority_queue<NodeWrapper, std::vector<NodeWrapper>, NodeComparator>;
+
     std::unordered_map<char, std::string> generateReplacementBinaryCodes() const;
-    void generateRepalcementBinaryCodesHelper(HuffmanTreeNode *currentNode, const std::string &currentReplacementString, std::unordered_map<char, std::string> &) const;
+    void generateReplacementBinaryCodesHelper(HuffmanTreeNode *currentNode, const std::string &currentReplacementString, std::unordered_map<char, std::string> &) const;
 };
 
 #endif
