@@ -12,7 +12,7 @@ public:
 
 class CompressionUseCase : public UseCase
 {
-private:
+protected:
     std::string source;
     std::string destination;
 
@@ -24,8 +24,18 @@ public:
 
     std::string operator()() const override;
 
-private:
+protected:
     std::string getPercentage(const double &) const;
+};
+
+class CompressionDbgUseCase : public CompressionUseCase
+{
+public:
+    CompressionDbgUseCase(const CompressionDbgUseCase &) = delete;
+    CompressionDbgUseCase(const std::string &, const std::string &);
+    CompressionDbgUseCase() = default;
+
+    std::string operator()() const override;
 };
 
 class DecompressionUseCase : public UseCase

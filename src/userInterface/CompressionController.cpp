@@ -40,15 +40,17 @@ std::string CompressionController::runCommand(const std::string &command)
 }
 
 const std::regex CompressionController::COMPRESSION_REGEX = std::regex("compress\\s-i\\s([[:w:]]+\\.txt)(?:\\s-o\\s([[:w:]]+\\.huf))?");
-
+const std::regex CompressionController::COMPRESSION_DBG_REGEX = std::regex("compress\\s-i\\s([[:w:]]+\\.txt)(?:\\s-o\\s([[:w:]]+\\.huf))?\\s-dbg");
 const std::regex CompressionController::DECOMPRESSION_REGEX = std::regex("decompress\\s-i\\s([[:w:]]+\\.huf)(?:\\s-o\\s([[:w:]]+\\.txt))?");
 
 const CompressionController::IterableRegexUseCaseMap CompressionController::REGEX_USE_CASE_MAP{
     {COMPRESSION_REGEX, [](const std::smatch &s) { return std::unique_ptr<UseCase>(new CompressionUseCase(s[1], s[2])); }},
+    {COMPRESSION_DBG_REGEX, [](const std::smatch &s) { return std::unique_ptr<UseCase>(new CompressionDbgUseCase(s[1], s[2])); }},
     {DECOMPRESSION_REGEX, [](const std::smatch &s) { return std::unique_ptr<UseCase>(new DecompressionUseCase(s[1], s[2])); }},
 };
 
-const std::string CompressionController::NO_MATCH_MESSAGE = std::string("No command matched.\nList of possible commands:\n"
-                                                 "compress -i <source>.txt (-o<destination>.huf)[optional] - compress file from .txt to .huf\n"
-                                                 "decompress -i <source>.huf (-o<destination>.txt)[optional] - decompress file from .huf to .txt\n"
-                                                 "close - close the program");
+const std::string CompressionController::NO_MATCH_MESSAGE = std::string(
+    "No command matched.\nList of possible commands:\n"
+    "compress -i <source>.txt (-o<destination>.huf)[optional] (-dbg)[optional]- compress file from .txt to .huf with optional debug regime\n"
+    "decompress -i <source>.huf (-o<destination>.txt)[optional] - decompress file from .huf to .txt\n"
+    "close - close the program");

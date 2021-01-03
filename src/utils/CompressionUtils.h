@@ -3,6 +3,7 @@
 
 #include <cstring>
 #include <string>
+#include <utility>
 
 namespace CompressionUtils
 {
@@ -14,6 +15,8 @@ namespace CompressionUtils
     */
     double compress(const std::string &source, const std::string &destination);
     double compress(const std::string &source);
+    std::pair<double, std::string> compressDbg(const std::string &source, const std::string& destination);
+    std::pair<double, std::string> compressDbg(const std::string &source);
 
     /**
      * Generates new .txt file that contains the decompressed data from the file with <source>.huf.

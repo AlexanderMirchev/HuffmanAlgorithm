@@ -20,6 +20,7 @@ private:
     using IterableRegexUseCaseMap = std::vector<std::pair<std::regex, UseCaseGenerator>>;
 
     static const std::regex COMPRESSION_REGEX;
+    static const std::regex COMPRESSION_DBG_REGEX;
     static const std::regex DECOMPRESSION_REGEX;
 
     static const IterableRegexUseCaseMap REGEX_USE_CASE_MAP;
