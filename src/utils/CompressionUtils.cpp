@@ -90,9 +90,10 @@ namespace
  */
 double CompressionUtils::compress(const std::string &sourceFilename, const std::string &destinationFilename)
 {
-    std::ifstream source(sourceFilename);
     try
     {
+        std::ifstream source(sourceFilename);
+
         if (!source.is_open())
         {
             throw CouldNotOpenFile(sourceFilename);
@@ -115,12 +116,10 @@ double CompressionUtils::compress(const std::string &sourceFilename, const std::
     {
         char message[50];
         sprintf(message, "Invalid produced binary: %s", e.what());
-        source.close();
         throw CompressionFailed(message);
     }
     catch (const HuffmanTreeExceptions::HuffmanTreeException &e)
     {
-        source.close();
         throw CompressionFailed(e.what());
     }
 }
@@ -135,9 +134,10 @@ double CompressionUtils::compress(const std::string &sourceFilename)
 
 void CompressionUtils::decompress(const std::string &sourceFilename, const std::string &destinationFilename)
 {
-    std::ifstream source(sourceFilename);
     try
-    {   
+    {
+        std::ifstream source(sourceFilename);
+
         if (!source.is_open())
         {
             throw CouldNotOpenFile(sourceFilename);
@@ -145,7 +145,6 @@ void CompressionUtils::decompress(const std::string &sourceFilename, const std::
 
         std::string input;
         std::getline(source, input);
-
         std::unordered_map<char, int> dictionary = HuffmanTreeHelper::deserializeDictionary(deserializeDictionaryFromSource(source));
         HuffmanTree huffManTree = HuffmanTree(dictionary);
 
@@ -155,7 +154,6 @@ void CompressionUtils::decompress(const std::string &sourceFilename, const std::
     }
     catch (const HuffmanTreeExceptions::HuffmanTreeException &e)
     {
-        source.close();
         throw DecompressionFailed(e.what());
     }
 }

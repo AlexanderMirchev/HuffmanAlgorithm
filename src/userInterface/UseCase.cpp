@@ -1,7 +1,6 @@
 #include "UseCase.h"
 
 #include <iomanip>
-#include <iostream>
 #include <sstream>
 
 #include "../utils/CompressionUtils.h"
@@ -34,7 +33,6 @@ std::string CompressionUseCase::operator()() const
     }
     catch (const std::exception &e)
     {
-        std::cout << e.what() << std::endl;
         return "Compression failed with unhandled error";
     }
 }
@@ -72,7 +70,6 @@ std::string DecompressionUseCase::operator()() const
     }
     catch (const std::exception &e)
     {
-        std::cout << e.what() << std::endl;
         return "Decompression failed with unhandled error";
     }
 }

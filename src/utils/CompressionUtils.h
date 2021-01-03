@@ -49,7 +49,7 @@ namespace CompressionUtils
     class CompressionFailed : public CompressionException
     {
     private:
-        char message[80];
+        char message[100];
 
     public:
         CompressionFailed() = delete;
@@ -67,7 +67,7 @@ namespace CompressionUtils
     class DecompressionFailed : public CompressionException
     {
     private:
-        char message[80];
+        char message[100];
 
     public:
         DecompressionFailed() = delete;
