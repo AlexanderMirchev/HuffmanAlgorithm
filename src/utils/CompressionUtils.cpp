@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <fstream>
+#include <iostream>
 #include <regex>
 #include <sstream>
 #include <unordered_map>
@@ -16,17 +17,14 @@
  */
 namespace
 {
-    int compressAndSerializeText(const std::string &binary, std::ofstream &destination)
+    double compressAndSerializeText(const std::string &binary, std::ofstream &destination)
     {
-        int compressedMemory = 0;
-
         std::string tempBinary;
         for (auto symbol : binary)
         {
             if (tempBinary.size() == 8)
             {
                 destination << BinaryUtils::binaryToInt(tempBinary) << ' ';
-                compressedMemory++;
                 tempBinary.clear();
             }
             tempBinary.push_back(symbol);
@@ -34,12 +32,10 @@ namespace
         if (!tempBinary.empty())
         {
             destination << BinaryUtils::binaryToInt(tempBinary);
-            compressedMemory++;
         }
 
         destination << std::endl;
-
-        return compressedMemory;
+        return binary.size()/8.0;
     }
 
     std::string decompressSerializedText(const std::string &compressed)
@@ -106,11 +102,11 @@ double CompressionUtils::compress(const std::string &sourceFilename, const std::
 
         std::ofstream destination(destinationFilename, std::ios::trunc);
 
-        int compressedMemory = compressAndSerializeText(huffManTree.convertToBinary(input), destination);
+        double compressedMemory = compressAndSerializeText(huffManTree.convertToBinary(input), destination);
 
         destination << HuffmanTreeHelper::serializeDictionary(dictionary);
 
-        return (double)compressedMemory / source.tellg();
+        return compressedMemory / source.tellg();
     }
     catch (const BinaryUtils::BinaryConversionException &e)
     {
