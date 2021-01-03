@@ -1,6 +1,7 @@
 #include "HuffmanTree.h"
 #include "HuffmanTreeHelper.h"
 
+#include <iostream>
 #include <stdexcept>
 
 HuffmanTree::HuffmanTree(const std::unordered_map<char, int> &dictionary) : root{nullptr}
@@ -37,7 +38,6 @@ std::string HuffmanTree::convertToBinary(const std::string &text) const
     std::string binaryResult;
 
     std::unordered_map<char, std::string> replacementBinaryCodes = generateReplacementBinaryCodes();
-
     for (auto symbol : text)
     {
         binaryResult.append(replacementBinaryCodes[symbol]);
@@ -103,7 +103,7 @@ const HuffmanTree::NodeComparator HuffmanTree::nodeComparator = [](NodeWrapper m
         }
         else if (m.node->height() != n.node->height())
         {
-            return m.node->height() > n.node->height();
+            return m.node->height() < n.node->height();
         }
         else
         {
