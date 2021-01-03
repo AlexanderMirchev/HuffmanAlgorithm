@@ -1,8 +1,10 @@
 #include "HuffmanTree.h"
 #include "HuffmanTreeHelper.h"
+#include "HuffmanTreeExceptions.h"
 
 #include <iostream>
 #include <stdexcept>
+
 
 HuffmanTree::HuffmanTree(const std::unordered_map<char, int> &dictionary) : root{nullptr}
 {
@@ -62,6 +64,11 @@ std::string HuffmanTree::convertFromBinary(const std::string &binary) const
         {
             searchingNode = searchingNode->right();
         }
+        else
+        {
+            throw HuffmanTreeExceptions::BadSerializedInput();
+        }
+        
 
         if (searchingNode->isLeaf())
         {

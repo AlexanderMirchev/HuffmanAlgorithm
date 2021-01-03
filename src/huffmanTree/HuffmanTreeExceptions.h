@@ -10,7 +10,16 @@ namespace HuffmanTreeExceptions
         virtual ~HuffmanTreeException() = default;
         virtual const char *what() const noexcept = 0;
     };
-
+    class BadSerializedInput : public HuffmanTreeException
+    {
+    public:
+        BadSerializedInput() = default;
+        ~BadSerializedInput() = default;
+        const char *what() const noexcept override
+        {
+            return "Input you are trying to decompress contains characters other than 0 and 1 digits";
+        }
+    };
     class BadSerializedDictionary : public HuffmanTreeException
     {
     public:

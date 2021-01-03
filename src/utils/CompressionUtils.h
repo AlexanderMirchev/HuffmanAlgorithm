@@ -82,16 +82,6 @@ namespace CompressionUtils
         }
     };
 
-    class BadInputToDecompress : public CompressionException
-    {
-    public:
-        BadInputToDecompress() = default;
-        ~BadInputToDecompress() = default;
-        const char *what() const noexcept override
-        {
-            return "Input you are trying to decompress contains characters other than numbers and whitespace";
-        }
-    };
 } // namespace CompressionUtils
 
 #endif

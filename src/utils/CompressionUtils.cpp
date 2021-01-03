@@ -17,56 +17,6 @@
  */
 namespace
 {
-    double compressAndSerializeText(const std::string &binary, std::ofstream &destination)
-    {
-        std::string tempBinary;
-        for (auto symbol : binary)
-        {
-            if (tempBinary.size() == 8)
-            {
-                destination << BinaryUtils::binaryToInt(tempBinary) << ' ';
-                tempBinary.clear();
-            }
-            tempBinary.push_back(symbol);
-        }
-        if (!tempBinary.empty())
-        {
-            destination << BinaryUtils::binaryToInt(tempBinary);
-        }
-
-        destination << std::endl;
-        return binary.size()/8.0;
-    }
-
-    std::string decompressSerializedText(const std::string &compressed)
-    {
-        std::string decompressedBinary;
-        std::string tempNumber;
-
-        for (auto symbol : compressed)
-        {
-            if (symbol <= '9' && symbol >= '0')
-            {
-                tempNumber += symbol;
-            }
-            else if (symbol == ' ')
-            {
-                decompressedBinary.append(BinaryUtils::intToBinary(std::stoi(tempNumber), true));
-                tempNumber.clear();
-            }
-            else
-            {
-                throw CompressionUtils::BadInputToDecompress();
-            }
-        }
-        if (!tempNumber.empty())
-        {
-            decompressedBinary.append(BinaryUtils::intToBinary(std::stoi(tempNumber)));
-        }
-
-        return decompressedBinary;
-    }
-
     std::string deserializeDictionaryFromSource(std::ifstream &source)
     {
         std::stringstream dictionaryStream;
@@ -102,11 +52,12 @@ double CompressionUtils::compress(const std::string &sourceFilename, const std::
 
         std::ofstream destination(destinationFilename, std::ios::trunc);
 
-        double compressedMemory = compressAndSerializeText(huffManTree.convertToBinary(input), destination);
+        std::string convertedBinary = huffManTree.convertToBinary(input);
 
+        destination << convertedBinary << std::endl;
         destination << HuffmanTreeHelper::serializeDictionary(dictionary);
 
-        return compressedMemory / source.tellg();
+        return (double) convertedBinary.size() / (8 * source.tellg());
     }
     catch (const BinaryUtils::BinaryConversionException &e)
     {
@@ -146,7 +97,7 @@ void CompressionUtils::decompress(const std::string &sourceFilename, const std::
 
         std::ofstream destination(destinationFilename);
 
-        destination << huffManTree.convertFromBinary(decompressSerializedText(input));
+        destination << huffManTree.convertFromBinary(input);
     }
     catch (const HuffmanTreeExceptions::HuffmanTreeException &e)
     {
