@@ -1,0 +1,43 @@
+\hypertarget{namespaceHuffmanTreeHelper}{}\doxysection{Huffman\+Tree\+Helper Namespace Reference}
+\label{namespaceHuffmanTreeHelper}\index{HuffmanTreeHelper@{HuffmanTreeHelper}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{namespaceHuffmanTreeHelper_a6df691fb1a225754f4bba7d789fb3672}{serialize\+Dictionary}} (const std\+::unordered\+\_\+map$<$ char, int $>$ \&)
+\item 
+std\+::unordered\+\_\+map$<$ char, int $>$ \mbox{\hyperlink{namespaceHuffmanTreeHelper_a5220ab4f90e4f9971f751c32dcdea0a6}{deserialize\+Dictionary}} (const std\+::string \&)
+\item 
+std\+::unordered\+\_\+map$<$ char, int $>$ \mbox{\hyperlink{namespaceHuffmanTreeHelper_a0535fccd68d4982b30b507d674921ead}{generate\+Dictionary\+From\+Text}} (const std\+::string \&)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Namespace with helper methods that create and transform dictionaries that are used together with the huffmantree. Dictionary is an unordered map with char-\/$>$int pairs illustrating the occurance data of each character 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceHuffmanTreeHelper_a5220ab4f90e4f9971f751c32dcdea0a6}\label{namespaceHuffmanTreeHelper_a5220ab4f90e4f9971f751c32dcdea0a6}} 
+\index{HuffmanTreeHelper@{HuffmanTreeHelper}!deserializeDictionary@{deserializeDictionary}}
+\index{deserializeDictionary@{deserializeDictionary}!HuffmanTreeHelper@{HuffmanTreeHelper}}
+\doxysubsubsection{\texorpdfstring{deserializeDictionary()}{deserializeDictionary()}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$ char, int $>$ Huffman\+Tree\+Helper\+::deserialize\+Dictionary (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{serialized }\end{DoxyParamCaption})}
+
+Desereializes dictionary from source with pattern $<$char$>$$<$number$>$$\vert$ pattern
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \mbox{\hyperlink{classHuffmanTreeExceptions_1_1BadSerializedDictionary}{Huffman\+Tree\+Exceptions\+::\+Bad\+Serialized\+Dictionary}}} & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{namespaceHuffmanTreeHelper_a0535fccd68d4982b30b507d674921ead}\label{namespaceHuffmanTreeHelper_a0535fccd68d4982b30b507d674921ead}} 
+\index{HuffmanTreeHelper@{HuffmanTreeHelper}!generateDictionaryFromText@{generateDictionaryFromText}}
+\index{generateDictionaryFromText@{generateDictionaryFromText}!HuffmanTreeHelper@{HuffmanTreeHelper}}
+\doxysubsubsection{\texorpdfstring{generateDictionaryFromText()}{generateDictionaryFromText()}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$ char, int $>$ Huffman\+Tree\+Helper\+::generate\+Dictionary\+From\+Text (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{text }\end{DoxyParamCaption})}
+
+Creates dictionary from string \mbox{\Hypertarget{namespaceHuffmanTreeHelper_a6df691fb1a225754f4bba7d789fb3672}\label{namespaceHuffmanTreeHelper_a6df691fb1a225754f4bba7d789fb3672}} 
+\index{HuffmanTreeHelper@{HuffmanTreeHelper}!serializeDictionary@{serializeDictionary}}
+\index{serializeDictionary@{serializeDictionary}!HuffmanTreeHelper@{HuffmanTreeHelper}}
+\doxysubsubsection{\texorpdfstring{serializeDictionary()}{serializeDictionary()}}
+{\footnotesize\ttfamily std\+::string Huffman\+Tree\+Helper\+::serialize\+Dictionary (\begin{DoxyParamCaption}\item[{const std\+::unordered\+\_\+map$<$ char, int $>$ \&}]{dictionary }\end{DoxyParamCaption})}
+
+Serializes dictionary with given pattern $<$char$>$$<$number$>$$\vert$ pattern 

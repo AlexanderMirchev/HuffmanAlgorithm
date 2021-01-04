@@ -3,6 +3,9 @@
 
 #include <string>
 
+/**
+ * UseCase base callable class with operator()
+*/
 class UseCase
 {
 public:
@@ -10,6 +13,9 @@ public:
     virtual std::string operator()() const = 0;
 };
 
+/**
+ * UseCase for compression
+*/
 class CompressionUseCase : public UseCase
 {
 protected:
@@ -28,6 +34,9 @@ protected:
     std::string getPercentage(const double &) const;
 };
 
+/**
+ * UseCase for compression with debug mode
+*/
 class CompressionDbgUseCase : public CompressionUseCase
 {
 public:
@@ -38,6 +47,9 @@ public:
     std::string operator()() const override;
 };
 
+/**
+ * UseCase for decompression
+*/
 class DecompressionUseCase : public UseCase
 {
 private:

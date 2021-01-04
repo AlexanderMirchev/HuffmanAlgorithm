@@ -9,10 +9,17 @@
 
 #include "UseCase.h"
 
+/**
+ * User interface method for resolving commands and delegating to compression/decompression methods
+*/
 class CompressionController
 {
 public:
+    /**
+     * Starts user input
+    */
     static void start();
+
 private:
     static std::string runCommand(const std::string &command);
 

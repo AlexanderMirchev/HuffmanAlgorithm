@@ -1,0 +1,126 @@
+\hypertarget{classHuffmanTreeLeaf}{}\doxysection{Huffman\+Tree\+Leaf Class Reference}
+\label{classHuffmanTreeLeaf}\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+
+
+{\ttfamily \#include $<$Huffman\+Tree\+Nodes.\+h$>$}
+
+Inheritance diagram for Huffman\+Tree\+Leaf\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classHuffmanTreeLeaf}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classHuffmanTreeLeaf_a1a65d665b46eadb84d264225f70f0a9a}{Huffman\+Tree\+Leaf}} ()=delete
+\item 
+\mbox{\hyperlink{classHuffmanTreeLeaf_af3caaa8054048ff87fb41bcfaf6600f5}{Huffman\+Tree\+Leaf}} (const long \&\mbox{\hyperlink{classHuffmanTreeLeaf_ae762fd2daf8b719ab79cd20976fbd9f6}{occurance\+Data}}, char \mbox{\hyperlink{classHuffmanTreeLeaf_a264fa389613e13890d353dbd0c46b4ed}{character\+Data}})
+\item 
+\mbox{\hyperlink{classHuffmanTreeLeaf_a2e8fabeca052f6321ed0a92f2a811736}{$\sim$\+Huffman\+Tree\+Leaf}} ()=default
+\item 
+bool \mbox{\hyperlink{classHuffmanTreeLeaf_a1e34f7b30436b0af056a4ac8611ef3e5}{is\+Leaf}} () const override
+\item 
+const long \& \mbox{\hyperlink{classHuffmanTreeLeaf_ae762fd2daf8b719ab79cd20976fbd9f6}{occurance\+Data}} () const override
+\item 
+const char \& \mbox{\hyperlink{classHuffmanTreeLeaf_a264fa389613e13890d353dbd0c46b4ed}{character\+Data}} () const override
+\item 
+\mbox{\hyperlink{classHuffmanTreeNode}{Huffman\+Tree\+Node}} $\ast$ \mbox{\hyperlink{classHuffmanTreeLeaf_ac71bc7e90c245430a15a814c92e6dbf1}{left}} () const override
+\item 
+\mbox{\hyperlink{classHuffmanTreeNode}{Huffman\+Tree\+Node}} $\ast$ \mbox{\hyperlink{classHuffmanTreeLeaf_a57a55997a21570cb4dbb3df3d157e594}{right}} () const override
+\item 
+int \mbox{\hyperlink{classHuffmanTreeLeaf_aac7dece311c17b8c079295726c16bf95}{height}} () const override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Leaf node of the binary huffman tree. Invocation of the \mbox{\hyperlink{classHuffmanTreeLeaf_ac71bc7e90c245430a15a814c92e6dbf1}{left()}} and \mbox{\hyperlink{classHuffmanTreeLeaf_a57a55997a21570cb4dbb3df3d157e594}{right()}} method results in \mbox{\hyperlink{classHuffmanTreeExceptions_1_1TreeNodeBadAccess}{Huffman\+Tree\+Exceptions\+::\+Tree\+Node\+Bad\+Access()}} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classHuffmanTreeLeaf_a1a65d665b46eadb84d264225f70f0a9a}\label{classHuffmanTreeLeaf_a1a65d665b46eadb84d264225f70f0a9a}} 
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\doxysubsubsection{\texorpdfstring{HuffmanTreeLeaf()}{HuffmanTreeLeaf()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Huffman\+Tree\+Leaf\+::\+Huffman\+Tree\+Leaf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classHuffmanTreeLeaf_af3caaa8054048ff87fb41bcfaf6600f5}\label{classHuffmanTreeLeaf_af3caaa8054048ff87fb41bcfaf6600f5}} 
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\doxysubsubsection{\texorpdfstring{HuffmanTreeLeaf()}{HuffmanTreeLeaf()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Huffman\+Tree\+Leaf\+::\+Huffman\+Tree\+Leaf (\begin{DoxyParamCaption}\item[{const long \&}]{occurance\+Data,  }\item[{char}]{character\+Data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classHuffmanTreeLeaf_a2e8fabeca052f6321ed0a92f2a811736}\label{classHuffmanTreeLeaf_a2e8fabeca052f6321ed0a92f2a811736}} 
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!````~HuffmanTreeLeaf@{$\sim$HuffmanTreeLeaf}}
+\index{````~HuffmanTreeLeaf@{$\sim$HuffmanTreeLeaf}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\doxysubsubsection{\texorpdfstring{$\sim$HuffmanTreeLeaf()}{~HuffmanTreeLeaf()}}
+{\footnotesize\ttfamily Huffman\+Tree\+Leaf\+::$\sim$\+Huffman\+Tree\+Leaf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classHuffmanTreeLeaf_a264fa389613e13890d353dbd0c46b4ed}\label{classHuffmanTreeLeaf_a264fa389613e13890d353dbd0c46b4ed}} 
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!characterData@{characterData}}
+\index{characterData@{characterData}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\doxysubsubsection{\texorpdfstring{characterData()}{characterData()}}
+{\footnotesize\ttfamily const char \& Huffman\+Tree\+Leaf\+::character\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classHuffmanTreeNode_a36f14848bd1c9e9ad4a96ca68c0441ef}{Huffman\+Tree\+Node}}.
+
+\mbox{\Hypertarget{classHuffmanTreeLeaf_aac7dece311c17b8c079295726c16bf95}\label{classHuffmanTreeLeaf_aac7dece311c17b8c079295726c16bf95}} 
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!height@{height}}
+\index{height@{height}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\doxysubsubsection{\texorpdfstring{height()}{height()}}
+{\footnotesize\ttfamily int Huffman\+Tree\+Leaf\+::height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classHuffmanTreeNode_af93a2abb4fb9ea060592238b62c2bb06}{Huffman\+Tree\+Node}}.
+
+\mbox{\Hypertarget{classHuffmanTreeLeaf_a1e34f7b30436b0af056a4ac8611ef3e5}\label{classHuffmanTreeLeaf_a1e34f7b30436b0af056a4ac8611ef3e5}} 
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!isLeaf@{isLeaf}}
+\index{isLeaf@{isLeaf}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\doxysubsubsection{\texorpdfstring{isLeaf()}{isLeaf()}}
+{\footnotesize\ttfamily bool Huffman\+Tree\+Leaf\+::is\+Leaf (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classHuffmanTreeNode_a24faf190d50ebe9d5aa0ee5d8fc75a5d}{Huffman\+Tree\+Node}}.
+
+\mbox{\Hypertarget{classHuffmanTreeLeaf_ac71bc7e90c245430a15a814c92e6dbf1}\label{classHuffmanTreeLeaf_ac71bc7e90c245430a15a814c92e6dbf1}} 
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!left@{left}}
+\index{left@{left}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\doxysubsubsection{\texorpdfstring{left()}{left()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHuffmanTreeNode}{Huffman\+Tree\+Node}} $\ast$ Huffman\+Tree\+Leaf\+::left (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classHuffmanTreeNode_a178fe378baa6d6d9530915633adee4cb}{Huffman\+Tree\+Node}}.
+
+\mbox{\Hypertarget{classHuffmanTreeLeaf_ae762fd2daf8b719ab79cd20976fbd9f6}\label{classHuffmanTreeLeaf_ae762fd2daf8b719ab79cd20976fbd9f6}} 
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!occuranceData@{occuranceData}}
+\index{occuranceData@{occuranceData}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\doxysubsubsection{\texorpdfstring{occuranceData()}{occuranceData()}}
+{\footnotesize\ttfamily const long \& Huffman\+Tree\+Leaf\+::occurance\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classHuffmanTreeNode_a916af07084b5fc51aaffca402e1f7567}{Huffman\+Tree\+Node}}.
+
+\mbox{\Hypertarget{classHuffmanTreeLeaf_a57a55997a21570cb4dbb3df3d157e594}\label{classHuffmanTreeLeaf_a57a55997a21570cb4dbb3df3d157e594}} 
+\index{HuffmanTreeLeaf@{HuffmanTreeLeaf}!right@{right}}
+\index{right@{right}!HuffmanTreeLeaf@{HuffmanTreeLeaf}}
+\doxysubsubsection{\texorpdfstring{right()}{right()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHuffmanTreeNode}{Huffman\+Tree\+Node}} $\ast$ Huffman\+Tree\+Leaf\+::right (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classHuffmanTreeNode_a3bce00472991cf0d4765905be4da8987}{Huffman\+Tree\+Node}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/huffman\+Tree/\mbox{\hyperlink{HuffmanTreeNodes_8h}{Huffman\+Tree\+Nodes.\+h}}\item 
+src/huffman\+Tree/\mbox{\hyperlink{HuffmanTreeLeaf_8cpp}{Huffman\+Tree\+Leaf.\+cpp}}\end{DoxyCompactItemize}

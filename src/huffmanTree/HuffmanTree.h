@@ -8,16 +8,29 @@
 
 #include "HuffmanTreeNodes.h"
 
+/**
+ * Tree used for compression and decompression of strings, created from <char,int> unordered_map
+*/
 class HuffmanTree
 {
 private:
     HuffmanTreeNode *root;
 
 public:
+    /**
+     * Constructor with <char,int> unordered_map
+    */
     HuffmanTree(const std::unordered_map<char, int> &dictionary);
     ~HuffmanTree();
 
+    /**
+     * Converts text to binary string based on built huffman tree
+    */
     std::string convertToBinary(const std::string &) const;
+
+    /**
+     * Converts binary to text based on built huffman tree
+    */
     std::string convertFromBinary(const std::string &) const;
 
 private:

@@ -1,0 +1,72 @@
+\hypertarget{namespaceCompressionUtils}{}\doxysection{Compression\+Utils Namespace Reference}
+\label{namespaceCompressionUtils}\index{CompressionUtils@{CompressionUtils}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCompressionUtils_1_1CompressionException}{Compression\+Exception}}
+\item 
+class \mbox{\hyperlink{classCompressionUtils_1_1CompressionFailed}{Compression\+Failed}}
+\item 
+class \mbox{\hyperlink{classCompressionUtils_1_1CouldNotOpenFile}{Could\+Not\+Open\+File}}
+\item 
+class \mbox{\hyperlink{classCompressionUtils_1_1DecompressionFailed}{Decompression\+Failed}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{namespaceCompressionUtils_ab2933eeab07b655e942c40f1178e64dd}{compress}} (const std\+::string \&source, const std\+::string \&destination)
+\item 
+double \mbox{\hyperlink{namespaceCompressionUtils_a227409502c06a9edb5d29dc47aeaf68a}{compress}} (const std\+::string \&source)
+\item 
+std\+::pair$<$ double, std\+::string $>$ \mbox{\hyperlink{namespaceCompressionUtils_a13d925c244318d36ee44a4f6c2742f06}{compress\+Dbg}} (const std\+::string \&source, const std\+::string \&destination)
+\item 
+std\+::pair$<$ double, std\+::string $>$ \mbox{\hyperlink{namespaceCompressionUtils_a33e6de777bdea5d32cef312ebfb7b88f}{compress\+Dbg}} (const std\+::string \&source)
+\item 
+void \mbox{\hyperlink{namespaceCompressionUtils_af6258ee53978e46fd835c30733a5d0a3}{decompress}} (const std\+::string \&source, const std\+::string \&destination)
+\item 
+void \mbox{\hyperlink{namespaceCompressionUtils_a4bb7c98c0b79db87e0d841d1fd442a25}{decompress}} (const std\+::string \&source)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceCompressionUtils_a227409502c06a9edb5d29dc47aeaf68a}\label{namespaceCompressionUtils_a227409502c06a9edb5d29dc47aeaf68a}} 
+\index{CompressionUtils@{CompressionUtils}!compress@{compress}}
+\index{compress@{compress}!CompressionUtils@{CompressionUtils}}
+\doxysubsubsection{\texorpdfstring{compress()}{compress()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Compression\+Utils\+::compress (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceCompressionUtils_ab2933eeab07b655e942c40f1178e64dd}\label{namespaceCompressionUtils_ab2933eeab07b655e942c40f1178e64dd}} 
+\index{CompressionUtils@{CompressionUtils}!compress@{compress}}
+\index{compress@{compress}!CompressionUtils@{CompressionUtils}}
+\doxysubsubsection{\texorpdfstring{compress()}{compress()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Compression\+Utils\+::compress (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source\+Filename,  }\item[{const std\+::string \&}]{destination\+Filename }\end{DoxyParamCaption})}
+
+Generates new text file with .huf extension that contains the compressed data from the file with $<$source$>$.txt. If no different name is selected the new file wil have the same name as the old with .huf extension.
+
+Returns compression ratio
+
+Compression utilities implementations \mbox{\Hypertarget{namespaceCompressionUtils_a33e6de777bdea5d32cef312ebfb7b88f}\label{namespaceCompressionUtils_a33e6de777bdea5d32cef312ebfb7b88f}} 
+\index{CompressionUtils@{CompressionUtils}!compressDbg@{compressDbg}}
+\index{compressDbg@{compressDbg}!CompressionUtils@{CompressionUtils}}
+\doxysubsubsection{\texorpdfstring{compressDbg()}{compressDbg()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::pair$<$ double, std\+::string $>$ Compression\+Utils\+::compress\+Dbg (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceCompressionUtils_a13d925c244318d36ee44a4f6c2742f06}\label{namespaceCompressionUtils_a13d925c244318d36ee44a4f6c2742f06}} 
+\index{CompressionUtils@{CompressionUtils}!compressDbg@{compressDbg}}
+\index{compressDbg@{compressDbg}!CompressionUtils@{CompressionUtils}}
+\doxysubsubsection{\texorpdfstring{compressDbg()}{compressDbg()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::pair$<$ double, std\+::string $>$ Compression\+Utils\+::compress\+Dbg (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source,  }\item[{const std\+::string \&}]{destination }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceCompressionUtils_a4bb7c98c0b79db87e0d841d1fd442a25}\label{namespaceCompressionUtils_a4bb7c98c0b79db87e0d841d1fd442a25}} 
+\index{CompressionUtils@{CompressionUtils}!decompress@{decompress}}
+\index{decompress@{decompress}!CompressionUtils@{CompressionUtils}}
+\doxysubsubsection{\texorpdfstring{decompress()}{decompress()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Compression\+Utils\+::decompress (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceCompressionUtils_af6258ee53978e46fd835c30733a5d0a3}\label{namespaceCompressionUtils_af6258ee53978e46fd835c30733a5d0a3}} 
+\index{CompressionUtils@{CompressionUtils}!decompress@{decompress}}
+\index{decompress@{decompress}!CompressionUtils@{CompressionUtils}}
+\doxysubsubsection{\texorpdfstring{decompress()}{decompress()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Compression\+Utils\+::decompress (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{source,  }\item[{const std\+::string \&}]{destination }\end{DoxyParamCaption})}
+
+Generates new .txt file that contains the decompressed data from the file with $<$source$>$.huf. If no different name is selected the new file wil have the same name as the old with .txt extension. 

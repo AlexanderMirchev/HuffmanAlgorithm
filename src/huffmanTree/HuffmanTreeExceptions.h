@@ -3,13 +3,23 @@
 
 #include <stdexcept>
 
+/**
+ * Exceptions that may occur in the inner usage of huffman tree algorithm
+*/
 namespace HuffmanTreeExceptions
 {
+    /**
+     * Base expcetion
+    */
     struct HuffmanTreeException : public std::exception
     {
         virtual ~HuffmanTreeException() = default;
         virtual const char *what() const noexcept = 0;
     };
+
+    /**
+     * Exception thrown when serialized input contains elements other than 0 and 1
+    */
     class BadSerializedInput : public HuffmanTreeException
     {
     public:
@@ -20,6 +30,10 @@ namespace HuffmanTreeExceptions
             return "Input you are trying to decompress contains characters other than 0 and 1 digits";
         }
     };
+
+    /**
+     * Exception thrown when serialized dictionary doesn't match the dictionary pattern
+    */
     class BadSerializedDictionary : public HuffmanTreeException
     {
     public:
@@ -31,6 +45,9 @@ namespace HuffmanTreeExceptions
         }
     };
 
+    /**
+     * Exception thrown when a node gets called a function not mathcing its polymorphic type
+    */
     class TreeNodeBadAccess : public HuffmanTreeException
     {
     public:

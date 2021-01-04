@@ -25,12 +25,18 @@ namespace CompressionUtils
     void decompress(const std::string &source, const std::string &destination);
     void decompress(const std::string &source);
 
+    /**
+     * Base compression exception
+    */
     struct CompressionException : public std::exception
     {
         virtual ~CompressionException() = default;
         virtual const char *what() const noexcept = 0;
     };
 
+    /**
+     * Compression exception thrown when file is not openable
+    */
     class CouldNotOpenFile : public CompressionException
     {
     private:
@@ -49,6 +55,9 @@ namespace CompressionUtils
         }
     };
 
+    /**
+     * Generic exception when compression is failed
+    */
     class CompressionFailed : public CompressionException
     {
     private:
@@ -67,6 +76,9 @@ namespace CompressionUtils
         }
     };
 
+    /**
+     * Generic exception when decompression is failed
+    */
     class DecompressionFailed : public CompressionException
     {
     private:
